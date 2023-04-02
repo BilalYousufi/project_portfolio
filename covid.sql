@@ -6,13 +6,13 @@ order by 3,4
 ----from portfolio..CovidVaccinations
 ----order by 3,4
 
-SELECT Location, date, total_cases_per_million, new_cases, total_deaths, population
+SELECT Location, date, total_cases, new_cases, total_deaths, population
 from portfolio..CovidDeaths
 order by 1,2
 
 -- Looking at total cases per million vs total death
 -- Shows likelihood of dying if you contract covid in your county
-SELECT Location, date, total_cases_per_million, total_deaths, (total_cases_per_million/total_deaths)*100 as DeathPercentage
+SELECT Location, date, total_cases, total_deaths, (total_cases_per_million/total_deaths)*100 as DeathPercentage
 from portfolio..CovidDeaths
 where location like '%states%'
 order by 1,2
@@ -20,7 +20,7 @@ order by 1,2
 -- Looking at the total_cases per million vs population
 -- Shows what percentage of population got covid
 
-SELECT Location, date, total_cases_per_million, population, (total_cases_per_million/population)*100 as PercentPopulationInfected
+SELECT Location, date, total_cases, population, (total_cases/population)*100 as PercentPopulationInfected
 from portfolio..CovidDeaths
 --where location like '%states%'
 order by 1,2
@@ -28,7 +28,7 @@ order by 1,2
 
 -- looking at the countries with the highest infection rate compared to the population
 
-SELECT Location, population, MAX(total_cases_per_million) as HighestInfectionCount, MAX(total_cases_per_million/population)*100 as PercentPopulationInfected
+SELECT Location, population, MAX(total_cases) as HighestInfectionCount, MAX(total_cases/population)*100 as PercentPopulationInfected
 from portfolio..CovidDeaths
 --where location like '%states%'
 Group  By location, population
